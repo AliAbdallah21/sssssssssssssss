@@ -1,0 +1,38 @@
+body{
+
+font-size: larger;
+font-style: calc();
+    font-family: 'Lucida Sans';
+}
+nav {
+    background-color: #333333;
+}
+p{
+    font-size: larger;
+    letter-spacing: 5px;
+    
+}
+h1:hover{
+color: red;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
+}
+nav {
+    background-color: #333;
+    padding: 50 px;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+ h1 {
+    width: 50%;
+    margin: auto;
+    padding: 10px;
+    font-size: 28px;
+    text-decoration: overline;
+    border: 3px black solid;
+    text-align: center;
+}
