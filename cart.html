@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping Cart</title>
+  <style>
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .cart-item img {
+      max-width: 50px;
+      margin-right: 10px;
+    }
+    .like-button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Shopping Cart</h1>
+  
+  <div id="cart">
+    <div class="cart-item">
+      <img src="item1.jpg" alt="Item 1">
+      <span>Item 1</span>
+      <button class="quantity-decrease">-</button>
+      <span class="item-quantity">1</span>
+      <button class="quantity-increase">+</button>
+      <button class="like-button">❤️</button>
+      <button class="delete-button">Delete</button>
+      <span class="item-price">$10</span>
+    </div>
+    <div class="cart-item">
+      <img src="item2.jpg" alt="Item 2">
+      <span>Item 2</span>
+      <button class="quantity-decrease">-</button>
+      <span class="item-quantity">1</span>
+      <button class="quantity-increase">+</button>
+      <button class="like-button">❤️</button>
+      <button class="delete-button">Delete</button>
+      <span class="item-price">$15</span>
+    </div>
+  </div>
+
+  <h2>Total Price: <span id="total-price">$25</span></h2>
+
+  <script>
+    const cart = document.getElementById('cart');
+    const totalPriceElement = document.getElementById('total-price');
+
+    // Add event listeners to each item
+    const items = cart.querySelectorAll('.cart-item');
+    items.forEach(item => {
+      const decreaseButton = item.querySelector('.quantity-decrease');
+      const increaseButton = item.querySelector('.quantity-increase');
+      const quantityElement = item.querySelector('.item-quantity');
+      const likeButton = item.querySelector('.like-button');
+      const deleteButton = item.querySelector('.delete-button');
+      const itemPriceElement = item.querySelector('.item-price');
+
+      let quantity = parseInt(quantityElement.textContent);
+      let itemPrice = parseFloat(itemPriceElement.textContent.slice(1));
+
+      decreaseButton.addEventListener('click', () => {
+        if (quantity > 1) {
+          quantity--;
+          quantityElement.textContent = quantity;
+          updateTotalPrice();
+        }
+      });
+
+      increaseButton.addEventListener('click', () => {
+        quantity++;
+        quantityElement.textContent = quantity;
+        updateTotalPrice();
+      });
+
+      likeButton.addEventListener('click', () => {
+        likeButton.classList.toggle('liked');
+      });
+
+      deleteButton.addEventListener('click', () => {
+        cart.removeChild(item);
+        updateTotalPrice();
+      });
+
+      function updateTotalPrice() {
+        const totalPrice = Array.from(items).reduce((total, currentItem) => {
+          const currentQuantity = parseInt(currentItem.querySelector('.item-quantity').textContent);
+          const currentPrice = parseFloat(currentItem.querySelector('.item-price').textContent.slice(1));
+          return total + currentQuantity * currentPrice;
+        }, 0);
+        totalPriceElement.textContent = '$' + totalPrice.toFixed(2);
+      }
+    });
+  </script>
+</body>
+</html>
